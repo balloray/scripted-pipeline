@@ -20,7 +20,7 @@ if (nodeIP?.trim()) {
                 sh 'ssh -o StrictHostKeyChecking=no -i $TASKKEY $TASKUSER@${nodeIP} systemctl enable httpd'
             }
             stage("Copy Html files") {
-                sh 'ssh -o StrictHostKeyChecking=no -i $TASKKEY $TASKUSER@${nodeIP} cp -r melodi/* /var/www/html/'
+                sh 'ssh -o StrictHostKeyChecking=no -i $TASKKEY $TASKUSER@${nodeIP} cp -r melodi/* /var/www/html/ && rm -rf melodi'
             }
             stage('Clean up Workspace') {
                 cleanWs()
@@ -37,6 +37,3 @@ else {
 
 
 
-withCredentials([sshUserPrivateKey(credentialsId: 'jenkins-master-ssh-key', keyFileVariable: 'TASKKEY', passphraseVariable: '', usernameVariable: 'TASKUSER')]) {
-    // some block
-}
