@@ -13,7 +13,7 @@ node{
         stage("Terraform Apply"){
             sh '''
                 cd sandbox/
-                terraform-0.13 apply -auto-approve
+                terraform-0.13 destroy -auto-approve
             '''
         }
     }    
