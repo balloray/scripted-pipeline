@@ -1,0 +1,32 @@
+---
+- name: Install Spring-Petclinic
+  hosts: all
+
+  tasks:
+  - name: Install prerequisites
+    package:
+      name:
+      - vim
+      - git
+      state: present
+
+  - name: Install maven
+    package:
+      name: 
+      - python3
+      - python3-pip
+      state: present
+
+  - name: Pull Flaskex
+    git:
+      repo: "{{ flaskex_repo }}"
+      version: "{{ flaskex_branch }}"
+      dest: /var/www/Flaskex/
+
+  - name: Install requirements
+    pip:
+      requirements: /var/www/Flaskex/requirements.txt
+      executable: pip3
+
+  - name: Start Flaskex
+    shell: "nohup python3 /var/www/Flaskex/app.py & "
