@@ -1,2 +1,2 @@
 file 
-simple file
+This is a simple file
